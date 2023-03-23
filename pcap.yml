@@ -1,0 +1,26 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+
+
+  - name: install updates
+    tags: always
+    apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+
+- hosts: all
+  become: true
+  tasks:
+    - name: copy the pcap file
+      fetch:
+        src: traffic.pcap
+        dest: "/home/emman/CPE243_emman/PCAP/"
+
+    - name: copy the pcap exe file
+      fetch:
+        src: traffic.exe
+        dest: "/home/emman/CPE243_emman/PCAP/"
